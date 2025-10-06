@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novel Title Here</title>
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin:0;
+    min-height:100vh;
+    font-family:'Roboto Slab', serif;
+    color: #ffffff;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    background: linear-gradient(
+      120deg,
+      #E0FFFF 0%,
+      #89CFF0 12%,
+      #87CEEB 25%,
+      #6495ED 38%,
+      #00BFFF 50%,
+      #0096FF 62%,
+      #4fd1c5 72%,
+      #191970 85%,
+      #E0FFFF 100%
+    );
+    background-size: 300% 300%;
+    animation: chiffonFlow 80s ease-in-out infinite;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:28px 16px;
+  }
+
+  @keyframes chiffonFlow {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .wrapper{
+    width:100%;
+    max-width:920px;
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  header h1{
+    margin:0;
+    font-size:2.6rem;
+    letter-spacing:0.6px;
+    font-weight:700;
+    background: linear-gradient(90deg, #e6f7ff, #ffffff);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: titleGradient 10s ease-in-out infinite alternate;
+    text-align:center;
+  }
+
+  @keyframes titleGradient{
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+
+  .cover{
+    display:flex;
+    justify-content:center;
+    margin:24px 0;
+    width:100%;
+  }
+
+  .cover img{
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius:10px;
+    box-shadow: 0 8px 28px rgba(10,30,60,0.28);
+    background:#eef7fb;
+    object-fit: contain; /* keeps any image resolution proportional */
+  }
+
+  .description{
+    max-width:760px;
+    margin: 18px auto;
+    text-align:center;
+    color: rgba(255,255,255,0.85);
+    font-size:1.05rem;
+    line-height:1.5;
+  }
+
+  .read-more{
+    display:inline-block;
+    margin-top:10px;
+    color: #ffffff;
+    cursor:pointer;
+    text-decoration:underline;
+    font-weight:600;
+  }
+
+  .meta-row{
+    display:flex;
+    flex-direction: column; /* stacked vertically */
+    align-items: flex-start;
+    gap: 8px;
+    margin-top:18px;
+    width:100%;
+    max-width:760px;
+  }
+
+  .genre{
+    padding:10px 14px;
+    border-radius:8px;
+    background: rgba(255,255,255,0.06);
+    color:#ffffff;
+    font-weight:700;
+    white-space: pre-wrap; /* allows multi-line genres */
+  }
+
+  .download a{
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:8px;
+    background: rgba(255,255,255,0.9);
+    color:#0b2740;
+    text-decoration:none;
+    font-weight:700;
+  }
+
+  /* comments area (placeholder) */
+  .comments{
+    margin-top:28px;
+    padding:18px;
+    color: rgba(255,255,255,0.85);
+    width:100%;
+    max-width:760px;
+  }
+
+  .comments h2{
+    margin:0 0 10px 0;
+    text-align:center;
+    color:#ffffff;
+  }
+
+  @media (max-width:520px){
+    header h1{ font-size:1.9rem; }
+    .cover img{ max-width:260px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <h1 id="novel-title">Novel Title Here</h1>
+    </header>
+
+    <div class="cover">
+      <img src="cover-placeholder.jpg" alt="Cover placeholder (replace with your image)">
+    </div>
+
+    <div class="description" id="desc">
+      <span id="shortDesc">This is a short description of your novel — a single gentle sentence that invites readers in.</span>
+      <span id="fullDesc" style="display:none;"> Here is the extended description area. Replace this with a longer synopsis or excerpt when ready.</span>
+      <div><span class="read-more" id="readToggle" role="button" tabindex="0">Read More</span></div>
+    </div>
+
+    <div class="meta-row">
+      <div class="genre" id="genre">
+        Genre: Fantasy, Adventure, Mystery
+      </div>
+      <div class="download">
+        <a href="my-novel.pdf" download>Download PDF</a>
+      </div>
+    </div>
+
+    <section class="comments">
+      <h2>Comments (placeholder for future functionality)</h2>
+      <p>Comments will appear here when a back-end is implemented.</p>
+    </section>
+  </div>
+
+<script>
+  // Toggle Read More / Less
+  const readToggle = document.getElementById('readToggle');
+  readToggle.addEventListener('click', toggleReadMore);
+  readToggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' ') toggleReadMore(); });
+
+  function toggleReadMore(){
+    const shortDesc = document.getElementById('shortDesc');
+    const fullDesc  = document.getElementById('fullDesc');
+    if(fullDesc.style.display==='none'||fullDesc.style.display===''){
+      fullDesc.style.display='inline';
+      shortDesc.style.display='none';
+      readToggle.textContent='Read Less';
+    } else{
+      fullDesc.style.display='none';
+      shortDesc.style.display='inline';
+      readToggle.textContent='Read More';
+    }
+  }
+</script>
+</body>
+</html>
