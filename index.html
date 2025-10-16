@@ -14,24 +14,42 @@
     min-height:100vh;
     font-family:'Roboto Slab', serif;
     color: #ffffff;
-    background: linear-gradient(120deg,#E0FFFF 0%,#89CFF0 12%,#87CEEB 25%,#6495ED 38%,#00BFFF 50%,#0096FF 62%,#4fd1c5 72%,#191970 85%,#E0FFFF 100%);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    background: linear-gradient(
+      120deg,
+      #E0FFFF 0%,
+      #89CFF0 12%,
+      #87CEEB 25%,
+      #6495ED 38%,
+      #00BFFF 50%,
+      #0096FF 62%,
+      #4fd1c5 72%,
+      #191970 85%,
+      #E0FFFF 100%
+    );
     background-size: 300% 300%;
     animation: chiffonFlow 80s ease-in-out infinite;
     display:flex;
     flex-direction:column;
     align-items:center;
     padding:28px 16px;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
   }
 
   @keyframes chiffonFlow {
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 
-  .wrapper{width:100%;max-width:920px;padding:30px;display:flex;flex-direction:column;align-items:center;}
+  .wrapper{
+    width:100%;
+    max-width:920px;
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
 
   header h1{
     margin:0;
@@ -39,141 +57,177 @@
     letter-spacing:0.6px;
     font-weight:700;
     background: linear-gradient(90deg, #e6f7ff, #ffffff);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    animation:titleGradient 10s ease-in-out infinite alternate;
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: titleGradient 10s ease-in-out infinite alternate;
     text-align:center;
   }
 
   @keyframes titleGradient{
-    0%{background-position:0% 50%;}
-    100%{background-position:100% 50%;}
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
   }
 
-  .cover{display:flex;justify-content:center;margin:24px 0;width:100%;}
-  .cover img{width:100%;max-width:400px;border-radius:10px;box-shadow:0 8px 28px rgba(10,30,60,0.28);}
-
-  .description{max-width:760px;margin:18px auto;text-align:center;color:rgba(255,255,255,0.85);font-size:1.05rem;line-height:1.5;}
-  .read-more{display:inline-block;margin-top:10px;color:#ffffff;cursor:pointer;text-decoration:underline;font-weight:600;}
-
-  .meta-row{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-top:18px;width:100%;max-width:760px;}
-  .genre{padding:10px 14px;border-radius:8px;background:rgba(255,255,255,0.06);color:#ffffff;font-weight:700;}
-
-  .download a{display:inline-block;padding:10px 18px;border-radius:8px;background:rgba(255,255,255,0.9);color:#0b2740;text-decoration:none;font-weight:700;}
-
-  .comments{margin-top:28px;padding:18px;color:rgba(255,255,255,0.85);width:100%;max-width:760px;}
-  .comments h2{text-align:center;color:#ffffff;}
-
-  /* Full-page PDF overlay */
-  #pdfOverlay {
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background-color: rgba(0,0,0,0.95);
-    display:none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index:9999;
+  .cover{
+    display:flex;
+    justify-content:center;
+    margin:24px 0;
+    width:100%;
   }
-  #pdfFrame {
-    width:90%;
-    height:90%;
-    border:none;
-    background:#fff;
+
+  .cover img{
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius:10px;
+    box-shadow: 0 8px 28px rgba(10,30,60,0.28);
+    background:#eef7fb;
+    object-fit: contain;
   }
-  #closeReader {
-    position:absolute;
-    top:18px; right:24px;
-    background:#ffffff;
-    color:#0b2740;
-    padding:8px 14px;
-    border:none;
-    border-radius:6px;
+
+  .description{
+    max-width:760px;
+    margin: 18px auto;
+    text-align:center;
+    color: rgba(255,255,255,0.85);
+    font-size:1.05rem;
+    line-height:1.5;
+  }
+
+  .read-more{
+    display:inline-block;
+    margin-top:10px;
+    color: #ffffff;
     cursor:pointer;
-    font-weight:700;
+    text-decoration:underline;
+    font-weight:600;
   }
 
-  @media(max-width:520px){
-    header h1{font-size:1.9rem;}
-    .cover img{max-width:260px;}
+  .meta-row{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top:18px;
+    width:100%;
+    max-width:760px;
+  }
+
+  .genre{
+    padding:10px 14px;
+    border-radius:8px;
+    background: rgba(255,255,255,0.06);
+    color:#ffffff;
+    font-weight:700;
+    white-space: pre-wrap;
+  }
+
+  .download a{
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:8px;
+    background: rgba(255,255,255,0.9);
+    color:#0b2740;
+    text-decoration:none;
+    font-weight:700;
+    transition:background 0.3s;
+  }
+
+  .download a:hover{
+    background:#ffffff;
+  }
+
+  .comments{
+    margin-top:28px;
+    padding:18px;
+    color: rgba(255,255,255,0.85);
+    width:100%;
+    max-width:760px;
+  }
+
+  .comments h2{
+    margin:0 0 10px 0;
+    text-align:center;
+    color:#ffffff;
+  }
+
+  @media (max-width:520px){
+    header h1{ font-size:1.9rem; }
+    .cover img{ max-width:260px; }
   }
 </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
   <div class="wrapper">
-    <header><h1 id="novel-title">Novel Title Here</h1></header>
+    <header>
+      <h1 id="novel-title">Novel Title Here</h1>
+    </header>
 
-    <div class="cover"><img src="cover-placeholder.jpg" alt="Cover placeholder"></div>
+    <div class="cover">
+      <img src="cover-placeholder.jpg" alt="Cover placeholder (replace with your image)">
+    </div>
 
     <div class="description" id="desc">
       <span id="shortDesc">This is a short description of your novel — a single gentle sentence that invites readers in.</span>
-      <span id="fullDesc" style="display:none;">Here is the extended description area. Replace this with a longer synopsis or excerpt when ready.</span>
+      <span id="fullDesc" style="display:none;"> Here is the extended description area. Replace this with a longer synopsis or excerpt when ready.</span>
       <div><span class="read-more" id="readToggle" role="button" tabindex="0">Read More</span></div>
     </div>
 
     <div class="meta-row">
-      <div class="genre" id="genre">Genre: Fantasy, Adventure, Mystery</div>
-      <div class="download"><a href="my-novel.pdf" download>Download PDF</a></div>
+      <div class="genre" id="genre">
+        Genre: Fantasy, Adventure, Mystery
+      </div>
+      <div class="download">
+        <a href="my-novel.pdf" id="readOnlineLink">Read Online</a>
+      </div>
     </div>
 
     <section class="comments">
       <h2>Comments</h2>
       <button id="loginBtn" style="padding:6px 12px;margin-bottom:12px;border-radius:6px;border:none;background:#ffffff;color:#0b2740;font-weight:600;cursor:pointer;">Login with Google</button>
+
       <input type="text" id="commentInput" placeholder="Write a comment..." style="width:70%;padding:6px;margin-top:12px;border-radius:6px;border:none;">
       <button id="commentBtn" style="padding:6px 12px;margin-left:6px;border-radius:6px;border:none;background:#ffffff;color:#0b2740;font-weight:600;cursor:pointer;">Post</button>
+
       <div id="commentsList" style="margin-top:12px;"></div>
     </section>
   </div>
 
-  <!-- PDF Reader Overlay -->
-  <div id="pdfOverlay">
-    <button id="closeReader">Close Reader</button>
-    <iframe id="pdfFrame" src="" allow="clipboard-read; clipboard-write"></iframe>
-  </div>
-
 <script>
-  // Read More toggle
+  // Read more toggle
   const readToggle = document.getElementById('readToggle');
   readToggle.addEventListener('click', toggleReadMore);
-  readToggle.addEventListener('keydown', (e)=>{if(e.key==='Enter'||e.key===' ')toggleReadMore();});
+  readToggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' ') toggleReadMore(); });
+
   function toggleReadMore(){
-    const shortDesc=document.getElementById('shortDesc');
-    const fullDesc=document.getElementById('fullDesc');
+    const shortDesc = document.getElementById('shortDesc');
+    const fullDesc  = document.getElementById('fullDesc');
     if(fullDesc.style.display==='none'||fullDesc.style.display===''){
-      fullDesc.style.display='inline'; shortDesc.style.display='none'; readToggle.textContent='Read Less';
-    }else{
-      fullDesc.style.display='none'; shortDesc.style.display='inline'; readToggle.textContent='Read More';
+      fullDesc.style.display='inline';
+      shortDesc.style.display='none';
+      readToggle.textContent='Read Less';
+    } else{
+      fullDesc.style.display='none';
+      shortDesc.style.display='inline';
+      readToggle.textContent='Read More';
     }
   }
 
-  // Full-page PDF Reader
-  const pdfLink = document.querySelector('.download a');
-  const pdfOverlay = document.getElementById('pdfOverlay');
-  const pdfFrame = document.getElementById('pdfFrame');
-  const closeReader = document.getElementById('closeReader');
-
-  pdfLink.textContent = "Read Online";
-  pdfLink.removeAttribute('download');
-
-  pdfLink.addEventListener('click', (e)=>{
+  // Read Online Button - open in full tab
+  const pdfLink = document.getElementById('readOnlineLink');
+  pdfLink.addEventListener('click', (e) => {
     e.preventDefault();
-    pdfFrame.src = pdfLink.getAttribute('href') + "#toolbar=0&navpanes=0&scrollbar=0";
-    pdfOverlay.style.display = 'flex';
-  });
+    const pdfUrl = pdfLink.getAttribute('href');
+    const newTab = window.open(pdfUrl, '_blank', 'noopener,noreferrer');
 
-  closeReader.addEventListener('click', ()=>{
-    pdfOverlay.style.display = 'none';
-    pdfFrame.src = "";
-  });
-
-  // Disable context menu and drag on iframe
-  pdfFrame.addEventListener('load', ()=>{
-    pdfFrame.contentWindow.document.addEventListener('contextmenu', e=>e.preventDefault());
+    if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+      // If popup blocked or PDF can’t open, fallback to download
+      window.location.href = pdfUrl;
+    }
   });
 </script>
 
-<!-- Firebase section -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
@@ -191,52 +245,58 @@
   };
 
   const app = initializeApp(firebaseConfig);
-  getAnalytics(app);
+  const analytics = getAnalytics(app);
   const db = getFirestore(app);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
   let currentUser = null;
 
-  const loginBtn=document.getElementById('loginBtn');
-  const commentInput=document.getElementById('commentInput');
-  const commentBtn=document.getElementById('commentBtn');
-  const commentsList=document.getElementById('commentsList');
+  const loginBtn = document.getElementById('loginBtn');
+  const commentInput = document.getElementById('commentInput');
+  const commentBtn = document.getElementById('commentBtn');
+  const commentsList = document.getElementById('commentsList');
 
-  loginBtn.addEventListener('click', async()=>{
-    try{
-      const result=await signInWithPopup(auth, provider);
-      currentUser=result.user;
+  loginBtn.addEventListener('click', async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      currentUser = result.user;
       alert(`Logged in as ${currentUser.displayName}`);
-      loginBtn.style.display='none';
-    }catch(err){console.error(err);}
+      loginBtn.style.display = 'none';
+    } catch (error) {
+      console.error(error);
+    }
   });
 
-  commentBtn.addEventListener('click', async()=>{
-    if(!currentUser){alert("Please log in first!");return;}
-    const text=commentInput.value.trim();
-    if(!text)return;
-    await addDoc(collection(db,'comments'),{
-      text:text,
-      name:currentUser.displayName,
-      timestamp:serverTimestamp()
+  commentBtn.addEventListener('click', async () => {
+    if (!currentUser) {
+      alert("Please log in first!");
+      return;
+    }
+    const text = commentInput.value.trim();
+    if (!text) return;
+    await addDoc(collection(db, 'comments'), {
+      text: text,
+      name: currentUser.displayName,
+      timestamp: serverTimestamp()
     });
-    commentInput.value='';
+    commentInput.value = '';
   });
 
-  const q=query(collection(db,'comments'),orderBy('timestamp'));
-  onSnapshot(q,snapshot=>{
-    commentsList.innerHTML='';
-    snapshot.forEach(doc=>{
-      const data=doc.data();
-      const div=document.createElement('div');
-      div.textContent=`${data.name||'Anonymous'}: ${data.text}`;
-      div.style.padding='8px 12px';
-      div.style.marginBottom='6px';
-      div.style.background='rgba(255,255,255,0.1)';
-      div.style.borderRadius='6px';
+  const q = query(collection(db, 'comments'), orderBy('timestamp'));
+  onSnapshot(q, (snapshot) => {
+    commentsList.innerHTML = '';
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const div = document.createElement('div');
+      div.textContent = `${data.name || 'Anonymous'}: ${data.text}`;
+      div.style.padding = '8px 12px';
+      div.style.marginBottom = '6px';
+      div.style.background = 'rgba(255,255,255,0.1)';
+      div.style.borderRadius = '6px';
       commentsList.appendChild(div);
     });
   });
 </script>
 </body>
 </html>
+
