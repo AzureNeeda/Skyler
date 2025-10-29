@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Skyler - Novel</title>
+<title>Skyler Novel</title>
 
 <!-- Font -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
@@ -12,12 +12,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.188/pdf.min.js"></script>
 
 <style>
-  /* BODY & BACKGROUND */
   body {
     margin:0;
     min-height:100vh;
     font-family:'Roboto Slab', serif;
-    color: #ffffff;
+    color: #001f4d; /* navy blue */
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
     background: linear-gradient(
@@ -41,12 +40,12 @@
   }
 
   @keyframes chiffonFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
 
-  .wrapper {
+  .wrapper{
     width:100%;
     max-width:920px;
     padding:30px;
@@ -55,7 +54,6 @@
     align-items:center;
   }
 
-  /* HEADER */
   header h1{
     margin:0;
     letter-spacing:0.6px;
@@ -76,40 +74,33 @@
     100% { background-position: 100% 50%; }
   }
 
-  /* COVER IMAGE */
   .cover {
-    display:flex;
-    justify-content:center;
-    margin:24px 0;
-    width:100%;
-    max-height:90vh;
-    overflow:hidden;
-  }
-
-  .cover img{
-    width:100%;
-    max-width:600px;
-    max-height:90vh;
-    height:auto;
-    border-radius:10px;
-    box-shadow: 0 8px 28px rgba(10,30,60,0.28);
-    object-fit:contain;
-    display:block;
-    margin:0 auto;
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
     background: transparent;
   }
 
-  /* DESCRIPTION */
+  .cover img {
+    width: auto;
+    height: auto;
+    max-width: 600px;
+    max-height: 90vh;
+    display: block;
+    object-fit: contain;
+    border-radius: 10px;
+    background: transparent;
+  }
+
   .description{
     max-width:760px;
     margin: 18px auto;
     text-align:center;
-    color: rgba(255,255,255,0.85);
+    color: #001f4d;
     font-size:1.05rem;
     line-height:1.5;
   }
 
-  /* META ROW */
   .meta-row{
     display:flex;
     flex-direction: column;
@@ -124,7 +115,7 @@
     padding:10px 14px;
     border-radius:8px;
     background: rgba(255,255,255,0.06);
-    color:#ffffff;
+    color:#001f4d;
     font-weight:700;
     white-space: pre-wrap;
     text-align:center;
@@ -141,7 +132,7 @@
     padding:12px 28px;
     border-radius:8px;
     background: rgba(255,255,255,0.9);
-    color:#0b2740;
+    color:#001f4d;
     border:none;
     font-weight:700;
     cursor:pointer;
@@ -153,8 +144,8 @@
     transform:scale(1.03);
   }
 
-  /* FULLSCREEN PDF VIEWER */
-  #pdfViewerContainer{
+  /* Full-screen PDF Viewer */
+  #pdfViewerContainer {
     position: fixed;
     top: 0;
     left: 0;
@@ -162,14 +153,14 @@
     height: 100vh;
     background: #0b2740;
     z-index: 9999;
-    display:none;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     padding-top: 60px;
   }
 
-  #pdfControls{
+  #pdfControls {
     position: absolute;
     top: 10px;
     left: 50%;
@@ -180,14 +171,14 @@
 
   #pdfControls input[type=number]{ width:50px; }
 
-  #pdfViewerContainer canvas{
+  #pdfViewerContainer canvas {
     width: 100%;
     height: calc(100% - 60px);
     object-fit: contain;
-    background: #fdfdfd;
+    background: transparent;
   }
 
-  #closePdfBtn{
+  #closePdfBtn {
     position:absolute;
     top:10px;
     right:10px;
@@ -201,19 +192,18 @@
     cursor:pointer;
   }
 
-  /* COMMENTS */
-  .comments{
+  .comments {
     margin-top:28px;
     padding:18px;
-    color: rgba(255,255,255,0.85);
+    color: #001f4d;
     width:100%;
     max-width:760px;
   }
 
-  .comments h2{
+  .comments h2 {
     margin:0 0 10px 0;
     text-align:center;
-    color:#ffffff;
+    color:#001f4d;
   }
 
   @media (max-width:520px){
@@ -221,7 +211,6 @@
     #novel-title .title-line2 { font-size:1.5rem; }
     .cover img{ max-width:260px; max-height:70vh; }
   }
-
 </style>
 </head>
 <body>
@@ -238,13 +227,11 @@
   </div>
 
   <div class="description" id="desc">
-    <span id="shortDesc">
-      Nova, a girl who prefers solitude, unexpectedly meets a friend who draws her into new experiences. Through fleeting days and quiet moments, she gradually rediscovers the sources of hope, connection, and the simple joys that give life its breath. A nature-infused journey of friendship, resilience, and self-discovery.
-    </span>
+    Nova, a girl who prefers solitude, unexpectedly meets a friend who draws her into new experiences. Through fleeting days and quiet moments, she gradually rediscovers the sources of hope, connection, and the simple joys that give life its breath. A nature-infused journey of friendship, resilience, and self-discovery.
   </div>
 
   <div class="meta-row">
-    <div class="genre" id="genre">
+    <div class="genre">
       Genre: Slice of Life, Literary Fiction, Nature-Inspired, Personal Journey
     </div>
     <div class="download">
@@ -264,13 +251,12 @@
     <canvas id="pdfCanvas"></canvas>
   </div>
 
-  <!-- COMMENTS -->
   <section class="comments">
     <h2>Comments</h2>
-    <button id="loginBtn" style="padding:6px 12px;margin-bottom:12px;border-radius:6px;border:none;background:#ffffff;color:#0b2740;font-weight:600;cursor:pointer;">Login with Google</button>
+    <button id="loginBtn" style="padding:6px 12px;margin-bottom:12px;border-radius:6px;border:none;background:#ffffff;color:#001f4d;font-weight:600;cursor:pointer;">Login with Google</button>
 
     <input type="text" id="commentInput" placeholder="Write a comment..." style="width:70%;padding:6px;margin-top:12px;border-radius:6px;border:none;">
-    <button id="commentBtn" style="padding:6px 12px;margin-left:6px;border-radius:6px;border:none;background:#ffffff;color:#0b2740;font-weight:600;cursor:pointer;">Post</button>
+    <button id="commentBtn" style="padding:6px 12px;margin-left:6px;border-radius:6px;border:none;background:#ffffff;color:#001f4d;font-weight:600;cursor:pointer;">Post</button>
 
     <div id="commentsList" style="margin-top:12px;"></div>
   </section>
@@ -288,12 +274,14 @@ const pageCountSpan = document.getElementById('pageCount');
 const prevBtn = document.getElementById('prevPage');
 const nextBtn = document.getElementById('nextPage');
 
+// Update this to your GitHub raw URL
+const pdfUrl = 'https://raw.githubusercontent.com/<username>/<repo>/main/Skyler.pdf';
+
 let pdfDoc = null;
 let currentPage = 1;
 let totalPages = 0;
-const pdfUrl = './Skyler.pdf'; // <-- adjust path if needed
 
-async function renderPage(pageNum){
+async function renderPage(pageNum) {
   const page = await pdfDoc.getPage(pageNum);
   const viewport = page.getViewport({ scale: 1 });
   const scale = Math.min(window.innerWidth / viewport.width, (window.innerHeight - 60) / viewport.height);
@@ -304,46 +292,46 @@ async function renderPage(pageNum){
   pageNumInput.value = pageNum;
 }
 
-async function loadPdf(){
+async function loadPdf() {
   pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
   totalPages = pdfDoc.numPages;
   pageCountSpan.textContent = totalPages;
   renderPage(currentPage);
 }
 
-openPdfBtn.addEventListener('click', ()=>{
+openPdfBtn.addEventListener('click', () => {
   pdfContainer.style.display = 'flex';
   loadPdf();
   openPdfBtn.style.display = 'none';
 });
 
-closePdfBtn.addEventListener('click', ()=>{
+closePdfBtn.addEventListener('click', () => {
   pdfContainer.style.display = 'none';
   openPdfBtn.style.display = 'inline-block';
 });
 
-prevBtn.addEventListener('click', ()=>{
-  if(currentPage <= 1) return;
+prevBtn.addEventListener('click', () => {
+  if (currentPage <= 1) return;
   currentPage--;
   renderPage(currentPage);
 });
 
-nextBtn.addEventListener('click', ()=>{
-  if(currentPage >= totalPages) return;
+nextBtn.addEventListener('click', () => {
+  if (currentPage >= totalPages) return;
   currentPage++;
   renderPage(currentPage);
 });
 
-pageNumInput.addEventListener('change', ()=>{
+pageNumInput.addEventListener('change', () => {
   let val = parseInt(pageNumInput.value);
-  if(val < 1) val = 1;
-  if(val > totalPages) val = totalPages;
+  if (val < 1) val = 1;
+  if (val > totalPages) val = totalPages;
   currentPage = val;
   renderPage(currentPage);
 });
 
-window.addEventListener('resize', ()=>{
-  if(pdfDoc) renderPage(currentPage);
+window.addEventListener('resize', () => {
+  if (pdfDoc) renderPage(currentPage);
 });
 </script>
 
@@ -382,36 +370,41 @@ loginBtn.addEventListener('click', async () => {
     currentUser = result.user;
     alert(`Logged in as ${currentUser.displayName}`);
     loginBtn.style.display = 'none';
-  } catch (error) { console.error(error); }
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 commentBtn.addEventListener('click', async () => {
-  if(!currentUser){ alert("Please log in first!"); return; }
+  if (!currentUser) {
+    alert("Please log in first!");
+    return;
+  }
   const text = commentInput.value.trim();
-  if(!text) return;
-  await addDoc(collection(db,'comments'), {
-    text:text,
+  if (!text) return;
+  await addDoc(collection(db, 'comments'), {
+    text: text,
     name: currentUser.displayName,
     timestamp: serverTimestamp()
   });
-  commentInput.value='';
+  commentInput.value = '';
 });
 
-const q = query(collection(db,'comments'), orderBy('timestamp'));
-onSnapshot(q, snapshot => {
-  commentsList.innerHTML='';
+const q = query(collection(db, 'comments'), orderBy('timestamp'));
+onSnapshot(q, (snapshot) => {
+  commentsList.innerHTML = '';
   snapshot.forEach(doc => {
     const data = doc.data();
     const div = document.createElement('div');
     div.textContent = `${data.name || 'Anonymous'}: ${data.text}`;
-    div.style.padding='8px 12px';
-    div.style.marginBottom='6px';
-    div.style.background='rgba(255,255,255,0.1)';
-    div.style.borderRadius='6px';
+    div.style.padding = '8px 12px';
+    div.style.marginBottom = '6px';
+    div.style.background = 'rgba(0,31,77,0.1)';
+    div.style.borderRadius = '6px';
     commentsList.appendChild(div);
   });
 });
 </script>
+
 </body>
 </html>
-
