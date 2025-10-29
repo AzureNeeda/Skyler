@@ -56,7 +56,6 @@
 
   header h1{
     margin:0;
-    font-size:2.6rem;
     letter-spacing:0.6px;
     font-weight:700;
     background: linear-gradient(90deg, #e6f7ff, #ffffff);
@@ -66,6 +65,9 @@
     animation: titleGradient 10s ease-in-out infinite alternate;
     text-align:center;
   }
+
+  #novel-title .title-line1 { font-size: 3rem; display:block; }
+  #novel-title .title-line2 { font-size: 2rem; display:block; }
 
   @keyframes titleGradient{
     0% { background-position: 0% 50%; }
@@ -80,15 +82,17 @@
   }
 
   .cover img{
-    width: 100%;
-    max-width: 400px; /* keeps it small on desktop */
-    height: auto;     /* preserves aspect ratio */
+    width:100%;
+    max-width:600px;
+    max-height:90vh;
+    height:auto;
     border-radius:10px;
     box-shadow: 0 8px 28px rgba(10,30,60,0.28);
     background:#eef7fb;
     object-fit: contain;
-}
-
+    display:block;
+    margin:0 auto;
+  }
 
   .description{
     max-width:760px;
@@ -97,15 +101,6 @@
     color: rgba(255,255,255,0.85);
     font-size:1.05rem;
     line-height:1.5;
-  }
-
-  .read-more{
-    display:inline-block;
-    margin-top:10px;
-    color: #ffffff;
-    cursor:pointer;
-    text-decoration:underline;
-    font-weight:600;
   }
 
   .meta-row{
@@ -151,26 +146,52 @@
     transform:scale(1.03);
   }
 
-  /* PDF Viewer */
+  /* Full-screen PDF Viewer */
   #pdfViewerContainer{
-    width:100%;
-    max-width:760px;
-    margin-top:20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0b2740;
+    z-index: 9999;
     display:none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 60px;
   }
-  #pdfViewerContainer canvas{
-    border:1px solid rgba(255,255,255,0.2);
-    border-radius:6px;
-    display:block;
-    margin:0 auto;
-    background:#fdfdfd;
-  }
+
   #pdfControls{
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
     text-align:center;
-    margin-bottom:8px;
   }
-  #pdfControls input[type=number]{
-    width:50px;
+
+  #pdfControls input[type=number]{ width:50px; }
+
+  #pdfViewerContainer canvas{
+    width: 100%;
+    height: calc(100% - 60px);
+    object-fit: contain;
+    background: #fdfdfd;
+  }
+
+  #closePdfBtn{
+    position:absolute;
+    top:10px;
+    right:10px;
+    z-index:10001;
+    padding:8px 12px;
+    border:none;
+    border-radius:6px;
+    background:#ffffff;
+    color:#0b2740;
+    font-weight:600;
+    cursor:pointer;
   }
 
   .comments{
@@ -188,84 +209,66 @@
   }
 
   @media (max-width:520px){
-    header h1{ font-size:1.9rem; }
-    .cover img{ max-width:260px; }
+    #novel-title .title-line1 { font-size:2rem; }
+    #novel-title .title-line2 { font-size:1.5rem; }
+    .cover img{ max-width:260px; max-height:70vh; }
   }
 </style>
 </head>
 <body>
-  <div class="wrapper">
-    <header>
-  <h1 id="novel-title">
-    <span class="title-line1">Skyler,</span><br>
-    <span class="title-line2">I wish to breathe another season</span>
-  </h1>
-</header>
+<div class="wrapper">
+  <header>
+    <h1 id="novel-title">
+      <span class="title-line1">Skyler,</span>
+      <span class="title-line2">I wish to breathe another season</span>
+    </h1>
+  </header>
 
-
-    <div class="cover">
-      <img src="Skyker'.png" alt="Skyler cover image" onerror="this.src='https://via.placeholder.com/400x600?text=Skyler+Cover+Coming+Soon';">
-    </div>
-
-    <div class="description" id="desc">
-    <span id="shortDesc">Nova, a girl who prefers solitude, unexpectedly meets a friend who draws her into new experiences. Through fleeting days and quiet moments, she gradually rediscovers the sources of hope, connection, and the simple joys that give life its breath. A nature-infused journey of friendship, resilience, and self-discovery.</span>
-</div>
-
-
-    <div class="meta-row">
-      <div class="genre" id="genre">
-        Genre: Slice of Life, Literary Fiction, Nature-Inspired, Personal Journey
-      </div>
-      <div class="download">
-        <button id="openPdfBtn">Read Now</button>
-      </div>
-    </div>
-
-    <!-- PDF Viewer -->
-    <div id="pdfViewerContainer">
-      <div id="pdfControls">
-        <button id="prevPage">Prev</button>
-        <input type="number" id="pageNum" value="1">
-        / <span id="pageCount">?</span>
-        <button id="nextPage">Next</button>
-      </div>
-      <canvas id="pdfCanvas"></canvas>
-    </div>
-
-    <section class="comments">
-      <h2>Comments</h2>
-      <button id="loginBtn" style="padding:6px 12px;margin-bottom:12px;border-radius:6px;border:none;background:#ffffff;color:#0b2740;font-weight:600;cursor:pointer;">Login with Google</button>
-
-      <input type="text" id="commentInput" placeholder="Write a comment..." style="width:70%;padding:6px;margin-top:12px;border-radius:6px;border:none;">
-      <button id="commentBtn" style="padding:6px 12px;margin-left:6px;border-radius:6px;border:none;background:#ffffff;color:#0b2740;font-weight:600;cursor:pointer;">Post</button>
-
-      <div id="commentsList" style="margin-top:12px;"></div>
-    </section>
+  <div class="cover">
+    <img src="Skyler.png" alt="Skyler cover image" loading="lazy" onerror="this.src='https://via.placeholder.com/400x600?text=Skyler+Cover+Coming+Soon';">
   </div>
 
+  <div class="description" id="desc">
+    <span id="shortDesc">Nova, a girl who prefers solitude, unexpectedly meets a friend who draws her into new experiences. Through fleeting days and quiet moments, she gradually rediscovers the sources of hope, connection, and the simple joys that give life its breath. A nature-infused journey of friendship, resilience, and self-discovery.</span>
+  </div>
+
+  <div class="meta-row">
+    <div class="genre" id="genre">
+      Genre: Slice of Life, Literary Fiction, Nature-Inspired, Personal Journey
+    </div>
+    <div class="download">
+      <button id="openPdfBtn">Read Now</button>
+    </div>
+  </div>
+
+  <!-- Full-screen PDF Viewer -->
+  <div id="pdfViewerContainer">
+    <button id="closePdfBtn">X</button>
+    <div id="pdfControls">
+      <button id="prevPage">Prev</button>
+      <input type="number" id="pageNum" value="1">
+      / <span id="pageCount">?</span>
+      <button id="nextPage">Next</button>
+    </div>
+    <canvas id="pdfCanvas"></canvas>
+  </div>
+
+  <section class="comments">
+    <h2>Comments</h2>
+    <button id="loginBtn" style="padding:6px 12px;margin-bottom:12px;border-radius:6px;border:none;background:#ffffff;color:#0b2740;font-weight:600;cursor:pointer;">Login with Google</button>
+
+    <input type="text" id="commentInput" placeholder="Write a comment..." style="width:70%;padding:6px;margin-top:12px;border-radius:6px;border:none;">
+    <button id="commentBtn" style="padding:6px 12px;margin-left:6px;border-radius:6px;border:none;background:#ffffff;color:#0b2740;font-weight:600;cursor:pointer;">Post</button>
+
+    <div id="commentsList" style="margin-top:12px;"></div>
+  </section>
+</div>
+
 <script>
-  // Read More toggle
-  const readToggle = document.getElementById('readToggle');
-  readToggle.addEventListener('click', toggleReadMore);
-  readToggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' ') toggleReadMore(); });
-
-  function toggleReadMore(){
-    const shortDesc = document.getElementById('shortDesc');
-    const fullDesc  = document.getElementById('fullDesc');
-    if(fullDesc.style.display==='none'||fullDesc.style.display===''){
-      fullDesc.style.display='inline';
-      shortDesc.style.display='none';
-      readToggle.textContent='Read Less';
-    } else{
-      fullDesc.style.display='none';
-      shortDesc.style.display='inline';
-      readToggle.textContent='Read More';
-    }
-  }
-
   // PDF.js Viewer
   const openPdfBtn = document.getElementById('openPdfBtn');
   const pdfContainer = document.getElementById('pdfViewerContainer');
+  const closePdfBtn = document.getElementById('closePdfBtn');
   const canvas = document.getElementById('pdfCanvas');
   const ctx = canvas.getContext('2d');
   const pageNumInput = document.getElementById('pageNum');
@@ -296,10 +299,15 @@
   }
 
   openPdfBtn.addEventListener('click', ()=>{
-    pdfContainer.style.display = 'block';
+    pdfContainer.style.display = 'flex';
     loadPdf();
     openPdfBtn.style.display = 'none';
     window.scrollTo({ top: pdfContainer.offsetTop, behavior: 'smooth' });
+  });
+
+  closePdfBtn.addEventListener('click', ()=>{
+    pdfContainer.style.display = 'none';
+    openPdfBtn.style.display = 'inline-block';
   });
 
   prevBtn.addEventListener('click', ()=>{
