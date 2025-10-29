@@ -179,7 +179,7 @@
         Genre: Fantasy, Adventure, Mystery
       </div>
       <div class="download">
-        <a href="my-novel.pdf" id="readOnlineLink">Read Online</a>
+        <a href="my-novel.pdf" id="readPdfLink">Read</a>
       </div>
     </div>
 
@@ -214,17 +214,13 @@
     }
   }
 
-  // Read Online Button - open in full tab
-  const pdfLink = document.getElementById('readOnlineLink');
-  pdfLink.addEventListener('click', (e) => {
+  // Read PDF in full window (like a built-in viewer)
+  const readPdfLink = document.getElementById('readPdfLink');
+  readPdfLink.addEventListener('click', (e) => {
     e.preventDefault();
-    const pdfUrl = pdfLink.getAttribute('href');
-    const newTab = window.open(pdfUrl, '_blank', 'noopener,noreferrer');
-
-    if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
-      // If popup blocked or PDF can’t open, fallback to download
-      window.location.href = pdfUrl;
-    }
+    const pdfUrl = readPdfLink.getAttribute('href');
+    // Opens the PDF in the same tab using the browser’s built-in viewer (allows typing page numbers)
+    window.open(pdfUrl, '_self');
   });
 </script>
 
@@ -299,4 +295,3 @@
 </script>
 </body>
 </html>
-
