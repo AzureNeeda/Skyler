@@ -121,27 +121,30 @@
     color:#ffffff;
     font-weight:700;
     white-space: pre-wrap;
+    text-align:center;
   }
 
   .download{
     display:flex;
     justify-content:center;
+    align-items:center;
     width:100%;
   }
 
   .download a{
     display:inline-block;
-    padding:12px 24px;
+    padding:12px 28px;
     border-radius:8px;
     background: rgba(255,255,255,0.9);
     color:#0b2740;
     text-decoration:none;
     font-weight:700;
-    transition:background 0.3s;
+    transition:background 0.3s, transform 0.2s;
   }
 
   .download a:hover{
     background:#ffffff;
+    transform:scale(1.03);
   }
 
   .comments{
@@ -171,7 +174,7 @@
     </header>
 
     <div class="cover">
-      <img src="Skyler.jpg" alt="Skyler cover image">
+      <img src="Skyler.jpg" alt="Skyler cover image" onerror="this.src='https://via.placeholder.com/400x600?text=Skyler+Cover+Coming+Soon';">
     </div>
 
     <div class="description" id="desc">
@@ -225,7 +228,7 @@
   readPdfLink.addEventListener('click', (e) => {
     e.preventDefault();
     const pdfUrl = readPdfLink.getAttribute('href');
-    window.open(pdfUrl, '_self'); // Opens PDF directly in same tab with browser viewer
+    window.open(pdfUrl, '_self'); // open PDF directly with browser viewer
   });
 </script>
 
