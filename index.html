@@ -107,8 +107,8 @@
   .meta-row{
     display:flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    align-items: center;
+    gap: 12px;
     margin-top:18px;
     width:100%;
     max-width:760px;
@@ -123,9 +123,15 @@
     white-space: pre-wrap;
   }
 
+  .download{
+    display:flex;
+    justify-content:center;
+    width:100%;
+  }
+
   .download a{
     display:inline-block;
-    padding:10px 18px;
+    padding:12px 24px;
     border-radius:8px;
     background: rgba(255,255,255,0.9);
     color:#0b2740;
@@ -165,7 +171,7 @@
     </header>
 
     <div class="cover">
-      <img src="cover-placeholder.jpg" alt="Cover placeholder (replace with your image)">
+      <img src="Skyler.jpg" alt="Skyler cover image">
     </div>
 
     <div class="description" id="desc">
@@ -179,7 +185,7 @@
         Genre: Fantasy, Adventure, Mystery
       </div>
       <div class="download">
-        <a href="my-novel.pdf" id="readPdfLink">Read</a>
+        <a href="Skyler.pdf" id="readPdfLink">Read Now</a>
       </div>
     </div>
 
@@ -214,13 +220,12 @@
     }
   }
 
-  // Read PDF in full window (like a built-in viewer)
+  // Open PDF in full window viewer
   const readPdfLink = document.getElementById('readPdfLink');
   readPdfLink.addEventListener('click', (e) => {
     e.preventDefault();
     const pdfUrl = readPdfLink.getAttribute('href');
-    // Opens the PDF in the same tab using the browser’s built-in viewer (allows typing page numbers)
-    window.open(pdfUrl, '_self');
+    window.open(pdfUrl, '_self'); // Opens PDF directly in same tab with browser viewer
   });
 </script>
 
