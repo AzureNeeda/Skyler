@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Novel Title Here</title>
+<title>Skyler - Novel</title>
 
 <!-- Font -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
@@ -12,6 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.188/pdf.min.js"></script>
 
 <style>
+  /* BODY & BACKGROUND */
   body {
     margin:0;
     min-height:100vh;
@@ -40,12 +41,12 @@
   }
 
   @keyframes chiffonFlow {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
 
-  .wrapper{
+  .wrapper {
     width:100%;
     max-width:920px;
     padding:30px;
@@ -54,6 +55,7 @@
     align-items:center;
   }
 
+  /* HEADER */
   header h1{
     margin:0;
     letter-spacing:0.6px;
@@ -74,15 +76,15 @@
     100% { background-position: 100% 50%; }
   }
 
- .cover {
+  /* COVER IMAGE */
+  .cover {
     display:flex;
     justify-content:center;
     margin:24px 0;
     width:100%;
     max-height:90vh;
     overflow:hidden;
-}
-
+  }
 
   .cover img{
     width:100%;
@@ -91,12 +93,13 @@
     height:auto;
     border-radius:10px;
     box-shadow: 0 8px 28px rgba(10,30,60,0.28);
-    background:#eef7fb;
-    object-fit: contain;
+    object-fit:contain;
     display:block;
     margin:0 auto;
+    background: transparent;
   }
 
+  /* DESCRIPTION */
   .description{
     max-width:760px;
     margin: 18px auto;
@@ -106,6 +109,7 @@
     line-height:1.5;
   }
 
+  /* META ROW */
   .meta-row{
     display:flex;
     flex-direction: column;
@@ -149,7 +153,7 @@
     transform:scale(1.03);
   }
 
-  /* Full-screen PDF Viewer */
+  /* FULLSCREEN PDF VIEWER */
   #pdfViewerContainer{
     position: fixed;
     top: 0;
@@ -197,6 +201,7 @@
     cursor:pointer;
   }
 
+  /* COMMENTS */
   .comments{
     margin-top:28px;
     padding:18px;
@@ -216,6 +221,7 @@
     #novel-title .title-line2 { font-size:1.5rem; }
     .cover img{ max-width:260px; max-height:70vh; }
   }
+
 </style>
 </head>
 <body>
@@ -228,16 +234,13 @@
   </header>
 
   <div class="cover">
-  <img 
-    src="Skyler.png" 
-    alt="Skyler cover image" 
-    loading="lazy"
-    style="width:100%; max-width:600px; max-height:90vh; height:auto; border-radius:10px; object-fit:contain;">
-
+    <img src="Skyler.png" alt="Skyler cover image" loading="lazy">
   </div>
 
   <div class="description" id="desc">
-    <span id="shortDesc">Nova, a girl who prefers solitude, unexpectedly meets a friend who draws her into new experiences. Through fleeting days and quiet moments, she gradually rediscovers the sources of hope, connection, and the simple joys that give life its breath. A nature-infused journey of friendship, resilience, and self-discovery.</span>
+    <span id="shortDesc">
+      Nova, a girl who prefers solitude, unexpectedly meets a friend who draws her into new experiences. Through fleeting days and quiet moments, she gradually rediscovers the sources of hope, connection, and the simple joys that give life its breath. A nature-infused journey of friendship, resilience, and self-discovery.
+    </span>
   </div>
 
   <div class="meta-row">
@@ -261,6 +264,7 @@
     <canvas id="pdfCanvas"></canvas>
   </div>
 
+  <!-- COMMENTS -->
   <section class="comments">
     <h2>Comments</h2>
     <button id="loginBtn" style="padding:6px 12px;margin-bottom:12px;border-radius:6px;border:none;background:#ffffff;color:#0b2740;font-weight:600;cursor:pointer;">Login with Google</button>
@@ -272,141 +276,142 @@
   </section>
 </div>
 
+<!-- PDF.js Script -->
 <script>
-  // PDF.js Viewer
-  const openPdfBtn = document.getElementById('openPdfBtn');
-  const pdfContainer = document.getElementById('pdfViewerContainer');
-  const closePdfBtn = document.getElementById('closePdfBtn');
-  const canvas = document.getElementById('pdfCanvas');
-  const ctx = canvas.getContext('2d');
-  const pageNumInput = document.getElementById('pageNum');
-  const pageCountSpan = document.getElementById('pageCount');
-  const prevBtn = document.getElementById('prevPage');
-  const nextBtn = document.getElementById('nextPage');
+const openPdfBtn = document.getElementById('openPdfBtn');
+const closePdfBtn = document.getElementById('closePdfBtn');
+const pdfContainer = document.getElementById('pdfViewerContainer');
+const canvas = document.getElementById('pdfCanvas');
+const ctx = canvas.getContext('2d');
+const pageNumInput = document.getElementById('pageNum');
+const pageCountSpan = document.getElementById('pageCount');
+const prevBtn = document.getElementById('prevPage');
+const nextBtn = document.getElementById('nextPage');
 
-  let pdfDoc = null;
-  let currentPage = 1;
-  let totalPages = 0;
-  const pdfUrl = 'Skyler.pdf';
+let pdfDoc = null;
+let currentPage = 1;
+let totalPages = 0;
+const pdfUrl = './Skyler.pdf'; // <-- adjust path if needed
 
-  async function renderPage(pageNum){
-    const page = await pdfDoc.getPage(pageNum);
-    const viewport = page.getViewport({ scale: 1.5 });
-    canvas.height = viewport.height;
-    canvas.width = viewport.width;
-    const renderContext = { canvasContext: ctx, viewport: viewport };
-    page.render(renderContext);
-    pageNumInput.value = pageNum;
-  }
+async function renderPage(pageNum){
+  const page = await pdfDoc.getPage(pageNum);
+  const viewport = page.getViewport({ scale: 1 });
+  const scale = Math.min(window.innerWidth / viewport.width, (window.innerHeight - 60) / viewport.height);
+  const scaledViewport = page.getViewport({ scale });
+  canvas.width = scaledViewport.width;
+  canvas.height = scaledViewport.height;
+  await page.render({ canvasContext: ctx, viewport: scaledViewport }).promise;
+  pageNumInput.value = pageNum;
+}
 
-  async function loadPdf(){
-    pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
-    totalPages = pdfDoc.numPages;
-    pageCountSpan.textContent = totalPages;
-    renderPage(currentPage);
-  }
+async function loadPdf(){
+  pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
+  totalPages = pdfDoc.numPages;
+  pageCountSpan.textContent = totalPages;
+  renderPage(currentPage);
+}
 
-  openPdfBtn.addEventListener('click', ()=>{
-    pdfContainer.style.display = 'flex';
-    loadPdf();
-    openPdfBtn.style.display = 'none';
-    window.scrollTo({ top: pdfContainer.offsetTop, behavior: 'smooth' });
-  });
+openPdfBtn.addEventListener('click', ()=>{
+  pdfContainer.style.display = 'flex';
+  loadPdf();
+  openPdfBtn.style.display = 'none';
+});
 
-  closePdfBtn.addEventListener('click', ()=>{
-    pdfContainer.style.display = 'none';
-    openPdfBtn.style.display = 'inline-block';
-  });
+closePdfBtn.addEventListener('click', ()=>{
+  pdfContainer.style.display = 'none';
+  openPdfBtn.style.display = 'inline-block';
+});
 
-  prevBtn.addEventListener('click', ()=>{
-    if(currentPage <= 1) return;
-    currentPage--;
-    renderPage(currentPage);
-  });
+prevBtn.addEventListener('click', ()=>{
+  if(currentPage <= 1) return;
+  currentPage--;
+  renderPage(currentPage);
+});
 
-  nextBtn.addEventListener('click', ()=>{
-    if(currentPage >= totalPages) return;
-    currentPage++;
-    renderPage(currentPage);
-  });
+nextBtn.addEventListener('click', ()=>{
+  if(currentPage >= totalPages) return;
+  currentPage++;
+  renderPage(currentPage);
+});
 
-  pageNumInput.addEventListener('change', ()=>{
-    let val = parseInt(pageNumInput.value);
-    if(val < 1) val = 1;
-    if(val > totalPages) val = totalPages;
-    currentPage = val;
-    renderPage(currentPage);
-  });
+pageNumInput.addEventListener('change', ()=>{
+  let val = parseInt(pageNumInput.value);
+  if(val < 1) val = 1;
+  if(val > totalPages) val = totalPages;
+  currentPage = val;
+  renderPage(currentPage);
+});
+
+window.addEventListener('resize', ()=>{
+  if(pdfDoc) renderPage(currentPage);
+});
 </script>
 
+<!-- Firebase Comments -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
-  import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
-  import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
+import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyBjbxPH-mjjJO9z-CcFTeZrBD0byvSuiqQ",
-    authDomain: "novel-comment.firebaseapp.com",
-    projectId: "novel-comment",
-    storageBucket: "novel-comment.appspot.com",
-    messagingSenderId: "581499177533",
-    appId: "1:581499177533:web:a5312ad34f3b9ae863f854",
-    measurementId: "G-KP9594R9FQ"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyBjbxPH-mjjJO9z-CcFTeZrBD0byvSuiqQ",
+  authDomain: "novel-comment.firebaseapp.com",
+  projectId: "novel-comment",
+  storageBucket: "novel-comment.appspot.com",
+  messagingSenderId: "581499177533",
+  appId: "1:581499177533:web:a5312ad34f3b9ae863f854",
+  measurementId: "G-KP9594R9FQ"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const db = getFirestore(app);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-  let currentUser = null;
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+let currentUser = null;
 
-  const loginBtn = document.getElementById('loginBtn');
-  const commentInput = document.getElementById('commentInput');
-  const commentBtn = document.getElementById('commentBtn');
-  const commentsList = document.getElementById('commentsList');
+const loginBtn = document.getElementById('loginBtn');
+const commentInput = document.getElementById('commentInput');
+const commentBtn = document.getElementById('commentBtn');
+const commentsList = document.getElementById('commentsList');
 
-  loginBtn.addEventListener('click', async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      currentUser = result.user;
-      alert(`Logged in as ${currentUser.displayName}`);
-      loginBtn.style.display = 'none';
-    } catch (error) {
-      console.error(error);
-    }
+loginBtn.addEventListener('click', async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    currentUser = result.user;
+    alert(`Logged in as ${currentUser.displayName}`);
+    loginBtn.style.display = 'none';
+  } catch (error) { console.error(error); }
+});
+
+commentBtn.addEventListener('click', async () => {
+  if(!currentUser){ alert("Please log in first!"); return; }
+  const text = commentInput.value.trim();
+  if(!text) return;
+  await addDoc(collection(db,'comments'), {
+    text:text,
+    name: currentUser.displayName,
+    timestamp: serverTimestamp()
   });
+  commentInput.value='';
+});
 
-  commentBtn.addEventListener('click', async () => {
-    if (!currentUser) {
-      alert("Please log in first!");
-      return;
-    }
-    const text = commentInput.value.trim();
-    if (!text) return;
-    await addDoc(collection(db, 'comments'), {
-      text: text,
-      name: currentUser.displayName,
-      timestamp: serverTimestamp()
-    });
-    commentInput.value = '';
+const q = query(collection(db,'comments'), orderBy('timestamp'));
+onSnapshot(q, snapshot => {
+  commentsList.innerHTML='';
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    const div = document.createElement('div');
+    div.textContent = `${data.name || 'Anonymous'}: ${data.text}`;
+    div.style.padding='8px 12px';
+    div.style.marginBottom='6px';
+    div.style.background='rgba(255,255,255,0.1)';
+    div.style.borderRadius='6px';
+    commentsList.appendChild(div);
   });
-
-  const q = query(collection(db, 'comments'), orderBy('timestamp'));
-  onSnapshot(q, (snapshot) => {
-    commentsList.innerHTML = '';
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      const div = document.createElement('div');
-      div.textContent = `${data.name || 'Anonymous'}: ${data.text}`;
-      div.style.padding = '8px 12px';
-      div.style.marginBottom = '6px';
-      div.style.background = 'rgba(255,255,255,0.1)';
-      div.style.borderRadius = '6px';
-      commentsList.appendChild(div);
-    });
-  });
+});
 </script>
 </body>
 </html>
+
