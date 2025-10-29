@@ -8,6 +8,9 @@
 <!-- Font -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
 
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.188/pdf.min.js"></script>
+
 <style>
   body {
     margin:0;
@@ -131,20 +134,42 @@
     width:100%;
   }
 
-  .download a{
-    display:inline-block;
+  .download button{
     padding:12px 28px;
     border-radius:8px;
     background: rgba(255,255,255,0.9);
     color:#0b2740;
-    text-decoration:none;
+    border:none;
     font-weight:700;
+    cursor:pointer;
     transition:background 0.3s, transform 0.2s;
   }
 
-  .download a:hover{
+  .download button:hover{
     background:#ffffff;
     transform:scale(1.03);
+  }
+
+  /* PDF Viewer */
+  #pdfViewerContainer{
+    width:100%;
+    max-width:760px;
+    margin-top:20px;
+    display:none;
+  }
+  #pdfViewerContainer canvas{
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:6px;
+    display:block;
+    margin:0 auto;
+    background:#fdfdfd;
+  }
+  #pdfControls{
+    text-align:center;
+    margin-bottom:8px;
+  }
+  #pdfControls input[type=number]{
+    width:50px;
   }
 
   .comments{
@@ -174,7 +199,7 @@
     </header>
 
     <div class="cover">
-      <img src="Skyler.jpg" alt="Skyler cover image" onerror="this.src='https://via.placeholder.com/400x600?text=Skyler+Cover+Coming+Soon';">
+      <img src="Skyker'.png" alt="Skyler cover image" onerror="this.src='https://via.placeholder.com/400x600?text=Skyler+Cover+Coming+Soon';">
     </div>
 
     <div class="description" id="desc">
@@ -188,8 +213,19 @@
         Genre: Fantasy, Adventure, Mystery
       </div>
       <div class="download">
-        <a href="Skyler.pdf" id="readPdfLink">Read Now</a>
+        <button id="openPdfBtn">Read Now</button>
       </div>
+    </div>
+
+    <!-- PDF Viewer -->
+    <div id="pdfViewerContainer">
+      <div id="pdfControls">
+        <button id="prevPage">Prev</button>
+        <input type="number" id="pageNum" value="1">
+        / <span id="pageCount">?</span>
+        <button id="nextPage">Next</button>
+      </div>
+      <canvas id="pdfCanvas"></canvas>
     </div>
 
     <section class="comments">
@@ -204,7 +240,7 @@
   </div>
 
 <script>
-  // Read more toggle
+  // Read More toggle
   const readToggle = document.getElementById('readToggle');
   readToggle.addEventListener('click', toggleReadMore);
   readToggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' ') toggleReadMore(); });
@@ -223,12 +259,63 @@
     }
   }
 
-  // Open PDF in full window viewer
-  const readPdfLink = document.getElementById('readPdfLink');
-  readPdfLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    const pdfUrl = readPdfLink.getAttribute('href');
-    window.open(pdfUrl, '_self'); // open PDF directly with browser viewer
+  // PDF.js Viewer
+  const openPdfBtn = document.getElementById('openPdfBtn');
+  const pdfContainer = document.getElementById('pdfViewerContainer');
+  const canvas = document.getElementById('pdfCanvas');
+  const ctx = canvas.getContext('2d');
+  const pageNumInput = document.getElementById('pageNum');
+  const pageCountSpan = document.getElementById('pageCount');
+  const prevBtn = document.getElementById('prevPage');
+  const nextBtn = document.getElementById('nextPage');
+
+  let pdfDoc = null;
+  let currentPage = 1;
+  let totalPages = 0;
+  const pdfUrl = 'Skyler.pdf';
+
+  async function renderPage(pageNum){
+    const page = await pdfDoc.getPage(pageNum);
+    const viewport = page.getViewport({ scale: 1.5 });
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+    const renderContext = { canvasContext: ctx, viewport: viewport };
+    page.render(renderContext);
+    pageNumInput.value = pageNum;
+  }
+
+  async function loadPdf(){
+    pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
+    totalPages = pdfDoc.numPages;
+    pageCountSpan.textContent = totalPages;
+    renderPage(currentPage);
+  }
+
+  openPdfBtn.addEventListener('click', ()=>{
+    pdfContainer.style.display = 'block';
+    loadPdf();
+    openPdfBtn.style.display = 'none';
+    window.scrollTo({ top: pdfContainer.offsetTop, behavior: 'smooth' });
+  });
+
+  prevBtn.addEventListener('click', ()=>{
+    if(currentPage <= 1) return;
+    currentPage--;
+    renderPage(currentPage);
+  });
+
+  nextBtn.addEventListener('click', ()=>{
+    if(currentPage >= totalPages) return;
+    currentPage++;
+    renderPage(currentPage);
+  });
+
+  pageNumInput.addEventListener('change', ()=>{
+    let val = parseInt(pageNumInput.value);
+    if(val < 1) val = 1;
+    if(val > totalPages) val = totalPages;
+    currentPage = val;
+    renderPage(currentPage);
   });
 </script>
 
