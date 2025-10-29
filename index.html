@@ -54,17 +54,18 @@
     align-items:center;
   }
 
-  header h1{
-    margin:0;
-    letter-spacing:0.6px;
-    font-weight:700;
-    background: linear-gradient(90deg, #e6f7ff, #ffffff);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: titleGradient 10s ease-in-out infinite alternate;
-    text-align:center;
-  }
+  header h1 {
+  margin: 0;
+  letter-spacing: 0.6px;
+  font-weight: 700;
+  color: #001f4d; /* same navy blue as body text */
+  text-align: center;
+  -webkit-background-clip: unset; /* remove gradient clipping */
+  -webkit-text-fill-color: unset;
+  background: unset;
+  animation: none; /* remove gradient animation */
+}
+
 
   #novel-title .title-line1 { font-size: 3rem; display:block; }
   #novel-title .title-line2 { font-size: 2rem; display:block; }
@@ -275,7 +276,7 @@ const prevBtn = document.getElementById('prevPage');
 const nextBtn = document.getElementById('nextPage');
 
 // PDF file URL
-const pdfUrl = 'https://raw.githubusercontent.com/BlueWavellite/Skyler/main/Skyler.pdf';
+const pdfUrl = 'https://github.com/BlueWavellite/Skyler/blob/main/Skyler.pdf';
 
 let pdfDoc = null;
 let currentPage = 1;
