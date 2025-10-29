@@ -81,13 +81,14 @@
 
   .cover img{
     width: 100%;
-    max-width: 400px;
-    height: auto;
+    max-width: 400px; /* keeps it small on desktop */
+    height: auto;     /* preserves aspect ratio */
     border-radius:10px;
     box-shadow: 0 8px 28px rgba(10,30,60,0.28);
     background:#eef7fb;
     object-fit: contain;
-  }
+}
+
 
   .description{
     max-width:760px;
@@ -195,22 +196,25 @@
 <body>
   <div class="wrapper">
     <header>
-      <h1 id="novel-title">Novel Title Here</h1>
-    </header>
+  <h1 id="novel-title">
+    <span class="title-line1">Skyler,</span><br>
+    <span class="title-line2">I wish to breathe another season</span>
+  </h1>
+</header>
+
 
     <div class="cover">
       <img src="Skyker'.png" alt="Skyler cover image" onerror="this.src='https://via.placeholder.com/400x600?text=Skyler+Cover+Coming+Soon';">
     </div>
 
     <div class="description" id="desc">
-      <span id="shortDesc">This is a short description of your novel — a single gentle sentence that invites readers in.</span>
-      <span id="fullDesc" style="display:none;"> Here is the extended description area. Replace this with a longer synopsis or excerpt when ready.</span>
-      <div><span class="read-more" id="readToggle" role="button" tabindex="0">Read More</span></div>
-    </div>
+    <span id="shortDesc">Nova, a girl who prefers solitude, unexpectedly meets a friend who draws her into new experiences. Through fleeting days and quiet moments, she gradually rediscovers the sources of hope, connection, and the simple joys that give life its breath. A nature-infused journey of friendship, resilience, and self-discovery.</span>
+</div>
+
 
     <div class="meta-row">
       <div class="genre" id="genre">
-        Genre: Fantasy, Adventure, Mystery
+        Genre: Slice of Life, Literary Fiction, Nature-Inspired, Personal Journey
       </div>
       <div class="download">
         <button id="openPdfBtn">Read Now</button>
